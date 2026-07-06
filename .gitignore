@@ -25,6 +25,9 @@ Thumbs.db
 .agents/
 .codex/
 .claude/worktrees/
+
+# Harvest sources — upstream repos kept locally as read-only specifications to decompose, not vendor
+agent-skills/
 # AGENTS.md is tracked: it is the Codex-facing companion to CLAUDE.md.
 
 # Secrets and local environment
