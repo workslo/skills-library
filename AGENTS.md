@@ -19,7 +19,7 @@ The question is never which tools we have, but what exists that works. Three tes
 
 ## Harvest sources
 Credible upstream repos live locally as read-only specifications to decompose, not code to run or vendor. They are gitignored and never compile into `dist/`.
-- `agent-skills/` — a clone of `github.com/addyosmani/agent-skills`, a lifecycle of engineering skills (`/spec`, `/plan`, `/build`, `/test`, `/review`, `/ship`). Harvest its decomposition, adapt to the tax-ops domain, do not import it wholesale.
+- `agent-skills/`: a clone of `github.com/addyosmani/agent-skills`, a lifecycle of engineering skills (`/spec`, `/plan`, `/build`, `/test`, `/review`, `/ship`). Harvest its decomposition, adapt to the tax-ops domain, do not import it wholesale.
 
 ## Where Codex things live
 - `.claude/skills/tax-ops-domain.md` — break taxonomy, routing rules, tax-form mappings, the three-test framework. Shared, not Claude-only. Load it when authoring or adapting an entry. (This pointer previously read `.Codex/skills/`, a path that never existed; the skills live under `.claude/skills/`.)
