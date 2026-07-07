@@ -4,7 +4,7 @@
 
 Most items below have a GitHub issue home, shown in parentheses; work the issue, then check it off here. The spec review is an evaluator-agent process task with no code issue.
 
-- [ ] **Clear the documentation drift in `docs/project-state.md`** - CLAUDE.md and `memory/projects/skills-library.md` still describe a 14-entry, single-source repo; the tree holds 20 entries plus a plugin marketplace. Update the entry count and "Where things live", refresh the dossier, home `period-close-reconciliation-workflow` and `build-pipeline-knowledge` in the plugin tree, resolve the helper-command classification clash, and reconcile the marketplace name with the repo slug.
+- [ ] **Clear the documentation drift in `docs/project-state.md`** - CLAUDE.md and `memory/projects/skills-library.md` still describe a 14-entry, single-source repo; the tree holds 23 entries plus a plugin marketplace. Update the entry count and "Where things live", refresh the dossier, home `period-close-reconciliation-workflow` and `build-pipeline-knowledge` in the plugin tree, resolve the helper-command classification clash, and reconcile the marketplace name with the repo slug.
 - [ ] **Get the Skills Library spec reviewed by the evaluator agent** - hand off `SKILLS_LIBRARY_SPEC.md`; incorporate feedback before build
 - [ ] **Desk-fit review of the content packs** (#21) - Data Analytics and Gainskeeper packs against the real operating cadence; hold every entry to the `gl-reconciler-break-triage` exemplar
 - [ ] **Decide and harvest the next source family** (#22) - GitHub agent patterns, financial-services examples, or document-review workflows
@@ -30,6 +30,7 @@ All three resolved 06-03-2026. See the "Decided" block in CHANGELOG.md.
 
 ## Done
 
+- [x] ~~Fix stale entry count and document the agent-skills harvest source~~ (07-06-2026) - corrected the contract's "14 today" to the validator-confirmed 23 and named the six meta entries plus the three writing-support entries the prose skipped; added a "Harvest sources" section for `agent-skills/` (clone of `addyosmani/agent-skills`) and gitignored it so the nested clone stays a read-only spec rather than getting half-tracked.
 - [x] ~~Resolve GitGuardian Bearer Token flag~~ (2026-06-27) - investigated and confirmed non-issue: repo is a fork of external code, token was never live and never introduced by Shane. Recorded in `memory/resolved-flags.md`; future diff runs will suppress this flag.
 - [x] ~~Adapt the harvested writing skills to tax-ops~~ (SLO-105, 06-18-2026) - decomposed `copywriting`, `content-strategy`, and `deep-write` into `client-communication-drafter`, `desk-kb-content-planner`, and `iterative-tax-memo-writer`; build now compiles 23 entries. Added `content/harvest/README.md` to make the build exclusion explicit. On `chore/pre-loop-cleanup`, pending PR.
 - [x] ~~Verify M365 Copilot / SharePoint-agent grounding guidance~~ (SLO-102, SLO-109, 06-18-2026) - verified five build-shaping claims against current Microsoft docs; recorded verdicts and citations in `docs/retrieval-guidance.md`. Four confirmed; the tables-to-bullets advice is undocumented and flagged as an internal heuristic. On `chore/pre-loop-cleanup`, pending PR.

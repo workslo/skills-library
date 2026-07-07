@@ -24,6 +24,12 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
   internal heuristic, not vendor guidance.
 
 ### Changed
+- Agent contract accuracy: corrected the entry count in `AGENTS.md`/`CLAUDE.md`
+  from a stale "14 today" to the actual 23 (validator-confirmed), and named the
+  six meta entries plus the three writing-support entries the prose had omitted.
+  Added a "Harvest sources" section documenting `agent-skills/` (a read-only
+  clone of `addyosmani/agent-skills`) as a decomposition spec, and gitignored it
+  so the nested clone is not half-tracked.
 - Agent contracts: reconciled `CLAUDE.md` and `AGENTS.md` to the dual-agent
   reality. Both files claimed their own tool was the settled, sole agent;
   Codex harvests content while Claude Code owns the build, scaffold, and
