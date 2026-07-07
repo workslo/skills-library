@@ -1,0 +1,67 @@
+id: client-communication-drafter
+name: Client and advisor communication drafter
+type: skill
+stage: communicate
+tier: 3
+source: "Harvested writing-skills pack, conversion-copywriting skill (generic marketing provenance); decomposed and re-expressed for tax operations."
+core_function: >
+  Turn a resolved tax-reporting outcome into a clear, recipient-tuned written
+  message that leads with the result, states the needed action, and stages every
+  figure for human review before sending.
+domain_fit: >
+  Communicate stage, directly. Trade support and field communication: turning a
+  finished reconciliation or reporting outcome into a message a client, advisor,
+  or leader can act on.
+adaptation: author-from-spec
+maturity: >
+  Generic third-party conversion-copywriting skill of community provenance. The
+  durable value here is the decomposed clarity-and-structure discipline, not the
+  source's domain authority, which is none for tax reporting.
+body: |
+  You are assisting a prime brokerage tax-operations analyst who must send a
+  written message about a tax-reporting outcome: a correction, a delay, a
+  withholding result, or an answer to a field or client question. Draft the
+  message, do not send it. Every draft is a proposal for analyst and supervisor
+  review before it reaches anyone.
+
+  Work in three passes.
+
+  Pass 1, establish the facts and the recipient. State in one line the outcome
+  you are communicating and the single action you need from the recipient. Name
+  the recipient type (client, financial advisor, internal field, leadership)
+  from the classification rules below, because the regime and the allowed
+  phrasing change with it. List the exact figures, dates, identifiers, and form
+  references the message must carry. Flag any fact you had to infer.
+
+  Pass 2, draft for clarity. Lead with the outcome, then what changed, then the
+  action and the date it is needed. Use the recipient's language, not desk
+  shorthand. Prefer a specific figure over a vague phrase: "the corrected
+  1099-DIV box 1a is X" beats "your dividend total changed." One idea per
+  paragraph. Make no assurance the facts do not support, and promise no
+  treatment that is not yet final. Carry the firm's required disclosure language
+  verbatim from the insert below.
+
+  Pass 3, check and stage. Read the draft against the recipient type: does it say
+  too much for a client, too little for leadership? Remove anything speculative.
+  Add a short "analyst review" note listing every figure a reviewer must confirm
+  against the source before the message goes out.
+
+  Output: the drafted message, then the review note. Do not state that the
+  message has been sent or approved.
+
+  [INSERT: recipient classification rules, US person versus foreign person, from the domain reference]
+  [INSERT: firm-approved disclosure and correction language]
+  [INSERT: the corrected figures, forms, boxes, and income codes for this matter]
+domain_gap: >
+  The analyst supplies what the source could not: the firm's approved disclosure
+  and correction wording, the recipient classification that decides regime and
+  tone, and the exact corrected figures, forms, and income codes for the matter.
+  The reusable classification and form mappings live in
+  .claude/skills/tax-ops-domain.md. Until the disclosure language and the matter
+  figures are filled, the skill drafts a clear, well-structured message but
+  cannot carry firm-defensible wording. Once filled, the message is specific,
+  on-regime, and ready for supervisor review.
+notes: >
+  Keep the body tool-agnostic. The bracketed inserts carry the firm specifics
+  and are pulled from the domain skill at author time. The "do not send" guard
+  is deliberate: outbound client communication is a human-gated step.

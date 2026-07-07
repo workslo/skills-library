@@ -50,7 +50,7 @@ Honor these in every non-code string: skill bodies, domain-gap notes, comments, 
 
 ## Full contract (merged from former CLAUDE.md)
 
-The sections below were the canonical fuller contract that previously lived in `CLAUDE.md`. `CLAUDE.md` is now a symlink to this file; the content is preserved here verbatim.
+The sections below were the canonical fuller contract that previously lived in `CLAUDE.md`. `CLAUDE.md` is now a symlink to this file; the content is preserved here verbatim. That preserved historical section is reference material; new edits still follow the writing preferences above.
 
 ### Me
 Finance operations on GS prime brokerage client tax reporting.
@@ -72,7 +72,7 @@ Prove one asset all the way up before going wide. From the first five minutes, t
 Break: a reconciliation discrepancy to research and resolve. Tie-out: reconcile a statement against an authoritative source. Cost basis: original asset value for tax gain and loss. Remediation path: UI, XML, SQL, or plugin. 1099-DIV/B/INT, 1042-S, FATCA, CRS: the reporting forms and regimes. Full definitions live in `memory/glossary.md`. Full break taxonomy, routing rules, and tax-form mappings live in the domain skill below.
 
 ### Where things live
-- `content/entries/*.yaml` — one asset per file, 20 today. Two domain packs plus a handful of meta entries. A Data Analytics pack covers metric-movement diagnostics, data-quality profiling, the break-backlog KPI readout, the dashboard brief, the report writer, and an end-to-end diagnostic workflow. A Gainskeeper operations pack covers exception research, gain/loss tie-out, email intake triage, field-status replies, KB review, the break tracker, and work-item routing. The rest document the library itself: the `tax-ops-domain-knowledge` and `build-pipeline-knowledge` reference entries, the three `claude-*-command` build-command entries, and the `period-close-reconciliation-workflow`. `gl-reconciler-break-triage.yaml` is the exemplar every entry matches for shape and depth. Schema in `SKILLS_LIBRARY_SPEC.md` section 4 (assets) and section 5 (workflows).
+- `content/entries/*.yaml` — one asset per file, 23 today. Two domain packs plus a handful of meta entries. A Data Analytics pack covers metric-movement diagnostics, data-quality profiling, the break-backlog KPI readout, the dashboard brief, the report writer, and an end-to-end diagnostic workflow. A Gainskeeper operations pack covers exception research, gain/loss tie-out, email intake triage, field-status replies, KB review, the break tracker, and work-item routing. A writing-support set covers client communication, desk KB content planning, and iterative tax memo drafting. The rest document the library itself: the `tax-ops-domain-knowledge` and `build-pipeline-knowledge` reference entries, the three `claude-*-command` build-command entries, and the `period-close-reconciliation-workflow`. `gl-reconciler-break-triage.yaml` is the exemplar every entry matches for shape and depth. Schema in `SKILLS_LIBRARY_SPEC.md` section 4 (assets) and section 5 (workflows).
 - `build/build.py` — validates content, renders each entry, runs the offline check, compiles the HTML. The build reads `content/entries/` and nothing else.
 - `build/template.html` — the offline shell. Inlined CSS and JS, no external dependencies. The build injects entries at the `<!--ENTRIES-->` marker.
 - `dist/skills-library.html` — generated output, gitignored. Do not hand-edit; the next build overwrites it.

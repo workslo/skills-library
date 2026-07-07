@@ -77,10 +77,12 @@ Map every reportable item to its form before you reconcile withholding or basis.
 | Sale, redemption, or closing of a security | US person | 1099-B | proceeds, cost basis, wash-sale loss disallowed, short or long term, covered versus noncovered |
 | Interest | US person | 1099-INT | interest income, early-withdrawal penalty, federal tax withheld |
 | Original issue discount | US person | 1099-OID | OID, other periodic interest |
-| Substitute payment in lieu of a dividend | US person | 1099-MISC | other income |
+| Substitute payment in lieu of a dividend | US person | 1099-MISC | box 8, substitute payments in lieu of dividends or interest |
 | US-source dividend, interest, or other FDAP | Foreign person (NRA) | 1042-S | income code, gross income, withholding rate, chapter 3 versus chapter 4, exemption code, recipient country |
 
-1042-S income codes seen most on the desk: 06 dividends, 01 interest, 51 other income. Use the exemption code when a treaty reduces or removes withholding.
+1042-S income codes seen most on the desk: 06 dividends, 01 interest, 23 other income. Use the exemption code when a treaty reduces or removes withholding.
+
+Verified 2026-06-18 against current IRS instructions: substitute payments in lieu of dividends or interest are reported in 1099-MISC Box 8, not other income (Instructions for Forms 1099-MISC and 1099-NEC, Rev. 04/2025, https://www.irs.gov/instructions/i1099mec); 1042-S "other income" is income code 23, while code 51 is interest on certain actively traded or publicly offered securities (2026 Instructions for Form 1042-S, https://www.irs.gov/instructions/i1042s).
 
 ### Account classification drives reporting and withholding
 

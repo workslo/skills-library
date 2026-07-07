@@ -256,7 +256,7 @@ def render_asset(e):
     parts.append('<div class="body-area">')
     parts.append('<div class="field"><h4>Core function</h4><p>%s</p></div>' % core)
     parts.append('<div class="copywrap">')
-    parts.append('<button class="copy" type="button" data-copy="prompt">Copy prompt</button>')
+    parts.append('<button class="copy" type="button" data-copy="prompt" aria-live="polite">Copy prompt</button>')
     parts.append('<pre class="body">%s</pre>' % body_raw)
     parts.append('</div>')
 
@@ -317,7 +317,7 @@ def render_workflow(e):
     parts.append('</div>')
 
     parts.append('<div class="body-area">')
-    parts.append('<button class="copy copy-all" type="button" data-copy="workflow">Copy whole workflow</button>')
+    parts.append('<button class="copy copy-all" type="button" data-copy="workflow" aria-live="polite">Copy whole workflow</button>')
 
     if trigger:
         parts.append('<div class="field"><h4>Trigger</h4>%s</div>' % trigger)
@@ -332,7 +332,7 @@ def render_workflow(e):
         parts.append('<li class="step">')
         parts.append('<div class="step-head"><span class="step-n">%d</span><span class="step-title">%s%s</span></div>' % (i, title, ref_html))
         parts.append('<div class="copywrap">')
-        parts.append('<button class="copy" type="button" data-copy="prompt">Copy step</button>')
+        parts.append('<button class="copy" type="button" data-copy="prompt" aria-live="polite">Copy step</button>')
         parts.append('<pre class="body">%s</pre>' % prompt_raw)
         parts.append('</div>')
         if out:
@@ -427,13 +427,19 @@ def check_offline(html_text):
     return found
 
 
+def stage_count(entries):
+    # Distinct workflow stages actually represented in the library, in STAGES order.
+    present = {e.get("stage") for e in entries}
+    return sum(1 for s in STAGES if s in present)
+
+
 def build(entries):
     template = TEMPLATE.read_text(encoding="utf-8")
     cards = render_entries(entries)
     out = template.replace("<!--ENTRIES-->", cards)
     out = out.replace("<!--COUNT-->", str(len(entries)))
     out = out.replace("<!--STAGES-->", ",".join(STAGES))
-    out = out.replace("<!--STAGE_COUNT-->", str(len(STAGES)))
+    out = out.replace("<!--STAGE_COUNT-->", str(stage_count(entries)))
     return out
 
 

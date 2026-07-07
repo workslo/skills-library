@@ -1,0 +1,68 @@
+id: iterative-tax-memo-writer
+name: Iterative tax memo writer
+type: skill
+stage: communicate
+tier: 3
+source: "Harvested writing-skills pack, deep-write recursive long-form skill (generic provenance); decomposed and re-expressed for tax operations."
+core_function: >
+  Draft a high-stakes long-form tax document, then improve it through bounded,
+  rubric-scored revision passes until it converges or a pass limit is reached.
+domain_fit: >
+  Communicate stage, directly. Long-form reporting and procedure writing: the
+  memos, narratives, and procedures that carry a finding to leadership or to a
+  regulator.
+adaptation: author-from-spec
+maturity: >
+  Generic third-party long-form writing skill of community provenance, modeled on
+  a modify, verify, keep-or-revert loop. The durable value is the bounded
+  rubric-driven method, adapted here so the accuracy lens checks tax figures.
+body: |
+  You are assisting a prime brokerage tax-operations analyst who must produce a
+  long-form document: a reconciliation findings memo, a regulatory reporting
+  narrative, or a desk procedure. Produce the draft, do not file or send it.
+  Every draft is a proposal for analyst and supervisor review.
+
+  Phase 1, frame. State three things in one line each: the single claim the
+  document makes, the decision or reader it serves, and what it must establish to
+  be defensible. If you cannot state the claim in one sentence, the document is
+  two documents. Present the frame and get confirmation before drafting.
+
+  Phase 2, draft. Write the full first draft. Open with the conclusion, then the
+  support. One idea per section, each with a concrete figure, date, or source
+  reference. Match length to the argument. Do not pad.
+
+  Phase 3, the revision loop. Run bounded passes, one lens at a time, scoring
+  each against the rubric below. Keep a change only if its score improves;
+  otherwise revert it and move to the next lens. The lenses, in order:
+
+    1. Accuracy. Every figure, form reference, box number, and income code traces
+       to a source or to the domain reference. An unverified number is a defect.
+    2. Structure and argument. The conclusion is stated first and the support is
+       ordered behind it.
+    3. Evidence and concreteness. Claims rest on specific figures and named
+       sources, not on assertion.
+    4. Compression. Cut anything that does not carry the argument.
+
+  Stop when a full cycle finds nothing worth changing, or at the pass limit the
+  analyst sets. Default to four passes.
+
+  Phase 4, present. Show the document, the rubric scorecard, and a short list of
+  every figure a reviewer must confirm against the source before filing.
+
+  Output: the document, the scorecard, and the reviewer checklist. Do not state
+  that the document has been filed or approved.
+
+  [INSERT: the firm's memo or filing template and required sections]
+  [INSERT: the source figures and form mappings to verify accuracy against, from the domain reference]
+domain_gap: >
+  The analyst supplies the firm's document standard and required sections, and
+  the source figures the accuracy lens checks against. The break taxonomy, form
+  mappings, and rates live in .claude/skills/tax-ops-domain.md. Until the
+  template and the source figures are filled, the skill produces a well-argued
+  draft but cannot verify its own numbers or meet the filing standard. Once
+  filled, the revision loop converges on a document that is accurate, ordered,
+  and ready for supervisor review.
+notes: >
+  The revision loop is bounded on purpose: a pass that does not raise a rubric
+  score is reverted, and the analyst can cap the pass count. Accuracy is the
+  first lens because an unverified figure in a tax memo is the costliest defect.

@@ -14,7 +14,7 @@ from pathlib import Path
 # build.py lives in build/; add it to the path so we can import the validator.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "build"))
 
-from build import build, check_offline, render_asset, render_entries, render_workflow, validate_entries  # noqa: E402
+from build import build, check_offline, render_asset, render_entries, render_workflow, stage_count, validate_entries  # noqa: E402
 
 
 def asset(**over):
@@ -164,11 +164,37 @@ def test_render_entries_groups_workflow_in_starting_stage():
 
 
 def test_build_substitutes_stage_count_and_type_filter():
-    html = build([asset(), workflow(id="second-flow", _file="second-flow.yaml")])
+    html = build([
+        asset(stage="research"),
+        workflow(id="second-flow", _file="second-flow.yaml", stage="remediate"),
+    ])
     assert "2 assets" in html
-    assert "Across 4 workflow stages" in html
+    assert "Across 2 workflow stages" in html
     assert 'data-type="workflow"' in html
     assert 'data-type="prompt"' in html
+
+
+def test_stage_count_counts_distinct_stages_present():
+    spread = [
+        asset(stage="intake-classify"),
+        asset(stage="research"),
+        asset(stage="remediate"),
+        asset(stage="communicate"),
+    ]
+    assert stage_count(spread) == 4
+    # A missing stage drops the count; duplicates do not inflate it.
+    assert stage_count([asset(stage="research"), asset(stage="research")]) == 1
+    assert stage_count(spread[:3]) == 3
+
+
+def test_offline_scan_catches_external_src_in_chrome():
+    html = '<main id="library"></main><img src="https://example.com/logo.png">'
+    assert any("src" in e for e in check_offline(html))
+
+
+def test_offline_scan_catches_css_import_in_chrome():
+    html = '<style>@import url("https://example.com/a.css");</style><main id="library"></main>'
+    assert any("@import" in e for e in check_offline(html))
 
 
 def test_offline_scan_ignores_prompt_prose_storage_and_url_tokens():

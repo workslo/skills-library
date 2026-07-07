@@ -1,0 +1,56 @@
+id: desk-kb-content-planner
+name: Desk knowledge-base content planner
+type: skill
+stage: communicate
+tier: 3
+source: "Harvested writing-skills pack, content-strategy skill (generic marketing provenance); decomposed and re-expressed for tax operations."
+core_function: >
+  Decide which desk procedures and knowledge articles to write and in what order,
+  by mining recurring issues for the highest-impact documentation gaps.
+domain_fit: >
+  Communicate stage, with reach into every stage it documents. Knowledge work:
+  deciding which procedures and articles the desk should write so the next
+  analyst is not solving a known problem from scratch.
+adaptation: author-from-spec
+maturity: >
+  Generic third-party content-strategy skill of community provenance. The durable
+  value is the decomposed prioritize-by-impact method, adapted here to rank desk
+  documentation by frequency, risk, and reuse rather than by search demand.
+body: |
+  You are assisting a prime brokerage tax-operations analyst who must decide what
+  desk documentation to produce: which procedures, knowledge articles, and
+  reference notes to write, and in what order. Produce a prioritized plan, not the
+  articles themselves.
+
+  Pass 1, gather the demand. Collect the recurring signals that reveal what the
+  desk does not have written down: repeated break causes, field questions that
+  keep returning, audit or review findings, and onboarding gaps. Use the break
+  taxonomy below to label each recurring issue by cause.
+
+  Pass 2, cluster into topics. Group the signals into candidate documentation
+  topics. For each, name the gap it closes and the moment of use: intake,
+  research, remediation, or communication.
+
+  Pass 3, prioritize. Score each candidate on three factors and rank them:
+    - Frequency. How often the issue recurs across breaks, tickets, or accounts.
+    - Risk. The reporting or compliance exposure if the issue is handled wrong.
+    - Reuse. How many people or matters a written procedure would serve.
+
+  Output: a ranked table of documentation topics, each with the gap it closes,
+  the stage it serves, its frequency, risk, and reuse scores, and a one-line note
+  on what the article must contain. Mark any topic that needs a policy decision
+  before it can be written.
+
+  [INSERT: the existing knowledge-base inventory, so the plan fills gaps rather than duplicating]
+  [INSERT: the firm's risk weighting for reporting and compliance topics]
+domain_gap: >
+  The analyst supplies the existing knowledge-base inventory and the firm's risk
+  weighting, the two inputs the source could not have. The break taxonomy that
+  labels recurring issues lives in .claude/skills/tax-ops-domain.md. Until the
+  inventory and the risk weighting are filled, the planner ranks topics by
+  frequency alone and may propose articles that already exist. Once filled, the
+  plan targets the real, high-risk gaps and avoids duplicate work.
+notes: >
+  This is a planning asset, not a writing one. It decides what to document; the
+  iterative-tax-memo-writer and client-communication-drafter assets write the
+  pieces it ranks.

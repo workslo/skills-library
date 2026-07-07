@@ -4,14 +4,32 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
 
 ## [Unreleased]
 
+### Added
+- Memory: created `memory/resolved-flags.md` to record investigated and closed
+  security/monitoring flags. First entry: GitGuardian Bearer Token in the
+  `generative-ai` repo (resolved 2026-06-27, non-issue — forked external repo,
+  never live, never Shane's code). Future diff runs should check this file
+  before surfacing a flag as active.
+- Content: adapted the three harvested writing skills into on-domain tax-ops
+  entries (SLO-105). `client-communication-drafter` (from copywriting),
+  `desk-kb-content-planner` (from content-strategy), and
+  `iterative-tax-memo-writer` (from deep-write) are `communicate`-stage skills
+  that pass validation; the catalog now builds 23 entries. Added
+  `content/harvest/README.md` to make the build's harvest exclusion explicit and
+  record the source-to-entry mapping.
+- Docs: added `docs/retrieval-guidance.md` (SLO-102, SLO-109), verifying the
+  M365 Copilot and SharePoint-agent grounding claims against current Microsoft
+  documentation with citations. Four of five claims confirmed; the "restate
+  tables as bullets" advice is not documented by Microsoft and is flagged as an
+  internal heuristic, not vendor guidance.
+
 ### Changed
 - Agent contract accuracy: corrected the entry count in `AGENTS.md`/`CLAUDE.md`
-  from a stale "14 today" to the actual 20 (validator-confirmed), and named the
-  six meta entries the prose had omitted (the two knowledge entries, the three
-  `claude-*-command` entries, and `period-close-reconciliation-workflow`). Added
-  a "Harvest sources" section documenting `agent-skills/` (a read-only clone of
-  `addyosmani/agent-skills`) as a decomposition spec, and gitignored it so the
-  nested clone is not half-tracked.
+  from a stale "14 today" to the actual 23 (validator-confirmed), and named the
+  six meta entries plus the three writing-support entries the prose had omitted.
+  Added a "Harvest sources" section documenting `agent-skills/` (a read-only
+  clone of `addyosmani/agent-skills`) as a decomposition spec, and gitignored it
+  so the nested clone is not half-tracked.
 - Agent contracts: reconciled `CLAUDE.md` and `AGENTS.md` to the dual-agent
   reality. Both files claimed their own tool was the settled, sole agent;
   Codex harvests content while Claude Code owns the build, scaffold, and
@@ -29,6 +47,13 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
   the legacy catalog and plugin marketplace stay aligned.
 
 ### Fixed
+- Domain reference: corrected two IRS mappings in `.claude/skills/tax-ops-domain.md`
+  and the mirrored `plugins/tax-ops-shared/skills/tax-ops-domain/SKILL.md`,
+  verified 2026-06-18 against current IRS instructions. Substitute payments in
+  lieu of dividends move from "other income" to 1099-MISC Box 8 (Instructions
+  for Forms 1099-MISC and 1099-NEC, Rev. 04/2025). 1042-S "other income"
+  corrected from code 51 to code 23; code 51 is interest on certain actively
+  traded or publicly offered securities (2026 Instructions for Form 1042-S).
 - Validation: remediation detection in workflows now scans each step's `output`,
   not just `title` and `prompt`. A remediation described only in the output no
   longer slips past the human-sign-off-gate rule. (`build/build.py`)
@@ -47,6 +72,15 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
   no longer pins the repo to an absolute path.
 
 ### Added
+- Track A card polish (issue #18): desktop cards are square (`aspect-ratio:1/1`) and
+  render three per row at 1280px via a `min-width:1024px` grid; mobile keeps the
+  single-column, content-height fallback (`aspect-ratio:auto`). A new
+  `stage_count(entries)` helper drives the `<!--STAGE_COUNT-->` hero substitution
+  off stages actually present in the content instead of the hardcoded schema count.
+  Copy buttons carry `aria-live="polite"` so the "Copied" status is announced.
+  Tests: a `stage_count` unit test plus offline regression cases for external `src`
+  and `@import` in the page chrome. (`build/build.py`, `build/template.html`,
+  `tests/test_validate.py`)
 - `build/serve.py`: builds the catalog then serves `dist/` over HTTP for local
   review (`python build/serve.py`, `--port`, `--no-build`). Convenience only; the
   page still loads nothing external.
