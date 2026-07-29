@@ -30,6 +30,7 @@ All three resolved 06-03-2026. See the "Decided" block in CHANGELOG.md.
 
 ## Done
 
+- [x] ~~Add a repository security reporting policy~~ (2026-07-28) - documented the private report path, supported version, data boundaries, scope, and response approach in `SECURITY.md`.
 - [x] ~~Fix stale entry count and document the agent-skills harvest source~~ (07-06-2026) - corrected the contract's "14 today" to the validator-confirmed 23 and named the six meta entries plus the three writing-support entries the prose skipped; added a "Harvest sources" section for `agent-skills/` (clone of `addyosmani/agent-skills`) and gitignored it so the nested clone stays a read-only spec rather than getting half-tracked.
 - [x] ~~Resolve GitGuardian Bearer Token flag~~ (2026-06-27) - investigated and confirmed non-issue: repo is a fork of external code, token was never live and never introduced by Shane. Recorded in `memory/resolved-flags.md`; future diff runs will suppress this flag.
 - [x] ~~Adapt the harvested writing skills to tax-ops~~ (SLO-105, 06-18-2026) - decomposed `copywriting`, `content-strategy`, and `deep-write` into `client-communication-drafter`, `desk-kb-content-planner`, and `iterative-tax-memo-writer`; build now compiles 23 entries. Added `content/harvest/README.md` to make the build exclusion explicit. On `chore/pre-loop-cleanup`, pending PR.

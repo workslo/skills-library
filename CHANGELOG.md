@@ -5,6 +5,7 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
 ## [Unreleased]
 
 ### Added
+- Security: added a private reporting policy with explicit boundaries for credentials, firm data, tax records, generated HTML, and unsafe asset instructions.
 - Memory: created `memory/resolved-flags.md` to record investigated and closed
   security/monitoring flags. First entry: GitGuardian Bearer Token in the
   `generative-ai` repo (resolved 2026-06-27, non-issue — forked external repo,
