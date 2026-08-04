@@ -76,6 +76,20 @@ def test_workflow_stage_is_required():
     assert "stage" in fields(validate_entries([e]))
 
 
+def test_workflow_stage_outside_enum_is_flagged():
+    # Regression: the stage enum check once ran only for assets, so a workflow
+    # with an unknown stage validated and then dropped out of the stage groups.
+    assert "stage" in fields(validate_entries([workflow(stage="backlog")]))
+
+
+def test_asset_stage_outside_enum_is_flagged():
+    assert "stage" in fields(validate_entries([asset(stage="backlog")]))
+
+
+def test_adaptation_outside_enum_is_flagged():
+    assert "adaptation" in fields(validate_entries([asset(adaptation="rewrite")]))
+
+
 def test_missing_required_field_is_flagged():
     e = asset()
     del e["domain_fit"]

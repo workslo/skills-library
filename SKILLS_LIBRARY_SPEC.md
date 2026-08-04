@@ -218,5 +218,6 @@ Findings, all incorporated in place:
 3. The shipped exemplar advanced past the section 8 version: the cause-taxonomy insert is filled; two inserts stay open as the terminal form. Section 8 notes the drift.
 4. Navigation shipped with a Type filter row and prompt-text search beyond the section 6 plan. Section 6 now matches the page.
 5. All four section 11 questions closed: three as recommended, the format question with a different answer found at build time.
+6. Review feedback on this pass surfaced a validator gap behind the section 4 claim: the stage allowed-value check ran only for assets, so a workflow with an unknown stage validated and then dropped out of the rendered stage groups. The check now runs for every entry type, with new contract tests for the stage and adaptation enums.
 
 Out of scope for this pass: the documentation drift between CLAUDE.md, the project dossier, and the plugin tree is tracked in TASKS.md and `docs/project-state.md` and stays with that task.

@@ -56,6 +56,12 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
   the legacy catalog and plugin marketplace stay aligned.
 
 ### Fixed
+- Validation: the `stage` allowed-value check now runs for every entry type.
+  It sat in the asset-only branch, so a workflow with an unknown stage passed
+  `--check` and then dropped out of the rendered stage groups silently. Found
+  by review on PR #39 during the spec-review pass. New contract tests cover
+  the stage enum for assets and workflows and the adaptation enum.
+  (`build/build.py`, `tests/test_validate.py`)
 - Domain reference: corrected two IRS mappings in `.claude/skills/tax-ops-domain.md`
   and the mirrored `plugins/tax-ops-shared/skills/tax-ops-domain/SKILL.md`,
   verified 2026-06-18 against current IRS instructions. Substitute payments in
