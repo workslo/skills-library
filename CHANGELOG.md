@@ -89,6 +89,9 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
   "calls external APIs" now trips the rule, where only "API" did before.
 - Offline check: patterns catch protocol-relative references (`//cdn…`), not just
   `https?:`. A protocol-relative external src, href, or `url()` is now flagged.
+- `.gitignore`: `node_modules/` and npm manifests are ignored. The playwright
+  package that `build/screenshot.mjs` imports is installed ad hoc for a render
+  check and is not part of the build; the install left an untracked tree.
 - `.gitignore`: secret coverage widened to `.env*`, `credentials.json`,
   `token.json`, `oauth_creds.json`, `client_secret*.json`, `.ssh/`, `.mcp-auth/`.
 - Memory layer: hardcoded absolute paths made portable. The repo-review agent's
