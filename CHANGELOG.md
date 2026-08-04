@@ -24,6 +24,15 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
   internal heuristic, not vendor guidance.
 
 ### Changed
+- Spec: completed the evaluator review of `SKILLS_LIBRARY_SPEC.md` (2026-08-04),
+  open since 2026-05-31. All ten acceptance criteria pass against the as-built
+  23-entry library. Findings incorporated in place: the one-YAML-file-per-entry
+  format decision (sections 2, 9, 11), the automated validation scope (sections
+  4, 5, 7), the exemplar's filled cause taxonomy (section 8), the shipped
+  navigation with the Type filter and prompt-text search (section 6), all four
+  section 11 open questions closed, a v1-shipped roadmap note (section 12), and
+  a new section 13 review record. Status moved from "Draft for review" to
+  reviewed.
 - Agent contract accuracy: corrected the entry count in `AGENTS.md`/`CLAUDE.md`
   from a stale "14 today" to the actual 23 (validator-confirmed), and named the
   six meta entries plus the three writing-support entries the prose had omitted.

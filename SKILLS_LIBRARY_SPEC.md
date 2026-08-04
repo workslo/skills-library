@@ -1,9 +1,10 @@
 # Skills Library — Build Specification
 
-**For:** Evaluator agent review, ahead of build
+**For:** Build contract and quality bar for the Skills Library
 **Author:** Tax-Ops AI working group
 **Date:** 2026-05-31
-**Status:** Draft for review
+**Reviewed:** 2026-08-04, evaluator pass against the as-built library. All ten acceptance criteria pass. Findings incorporated in place; record in section 13.
+**Status:** Reviewed, current
 
 ---
 
@@ -23,7 +24,7 @@ The build instead separates content from presentation and assembles the file pro
 
 | Layer | What it holds | Format | Who writes it |
 |---|---|---|---|
-| Content | The actual asset bodies, metadata, domain-gap notes | Markdown with YAML front-matter, or a single JSON array | Authored once per asset, edited in place |
+| Content | The actual asset bodies, metadata, domain-gap notes | One YAML file per entry in `content/entries/` (decided at build; section 11) | Authored once per asset, edited in place |
 | Template | The HTML shell: head, inlined CSS, the expandable-block component, the copy-button script | HTML, written once | Built once, reused |
 | Build | A short Python script that reads the content, loops over entries, and injects each into the template | Python | Written once, re-run on every change |
 
@@ -63,6 +64,8 @@ Every non-workflow asset carries these fields. Required unless marked optional.
 
 Two rules the evaluator should enforce. First, `core_function` must be tool-agnostic; if it names a database, a language runtime, or a connector, it has not been decomposed. Second, `domain_gap` must be substantive for every finance asset, because no asset in the inventory is tax-aware out of the box, and an entry that pretends otherwise is a defect.
 
+As built, `python build/build.py --check` enforces both rules mechanically, plus the structural ones: `id` matches the filename stem and is unique across the library, `tier` is an integer 1 to 4, and `stage`, `type`, and `adaptation` hold allowed values only. The tool scan on `core_function` fails a match on sql, xml, plugin, database, connector, runtime, sdk, mcp, api, rest, graphql, endpoint, or cron, plurals included. Each rule carries a contract test in `tests/test_validate.py`.
+
 ---
 
 ## 5. Workflow card model
@@ -79,13 +82,17 @@ A workflow is an ordered sequence of skills plus connective logic and decision g
 
 Rendering: a numbered sequence, each step expandable to reveal its prompt, with sign-off gates marked inline and visually distinct. The user can copy a single step's prompt or the whole sequence.
 
+The validator enforces the gate rule: every workflow carries at least one explicit sign-off gate, and remediation detection scans each step's title, prompt, and output, so a remediation described only in a step's output cannot slip past ungated.
+
 ---
 
 ## 6. Organization and navigation
 
 Primary grouping is by workflow stage, because that matches the moment of use: intake-classify, research, remediate, communicate. Credibility tier appears as a tag on each card, preserving the trust signal from the inventory without making it the navigation axis. A user pulling an asset mid-task thinks in terms of the stage they are in, not the tier of the source.
 
-Each card shows, collapsed: name, type, stage, tier tag, core function, adaptation status. Expanded: the body, the domain-gap note, source, and maturity. Top-of-file controls: filter by stage, filter by tier, and a text search across names and core functions.
+Each card shows, collapsed: name, type, stage, tier tag, core function, adaptation status. Expanded: the body, the domain-gap note, source, and maturity. Top-of-file controls: filter by stage, filter by type, filter by tier, and a text search across names, core functions, and prompt text.
+
+As built: entries render in stage sections, the expanded view is an accessible dialog, and workflows surface through the Type filter rather than a synthetic stage (the 2026-06-03 design call). The search index covers prompt bodies, which goes past the original names-and-core-functions plan and stays.
 
 ---
 
@@ -95,6 +102,8 @@ Each card shows, collapsed: name, type, stage, tier tag, core function, adaptati
 2. The copy button writes clean plain text to the clipboard: the raw prompt only, with no HTML entities, no surrounding markup, and no smart-quote substitution that would corrupt a pasted prompt.
 3. No browser storage APIs. The file is read-only reference; it holds no user state.
 4. The file degrades gracefully if the clipboard API is unavailable, by selecting the text for manual copy.
+
+All four hold in the shipped artifact, and the offline promise is checked on every build: the scan fails the compiled page on external `src` or `href`, `<link>`, external `<script src>`, `@import`, remote or protocol-relative `url()`, and any browser-storage or cookie use in the page chrome. The copy path degrades in order: clipboard API, then legacy execCommand, then select-for-manual-copy, with the result announced for screen readers.
 
 ---
 
@@ -144,21 +153,23 @@ maturity: >
 
 Note for the evaluator: this exemplar passes all three tests visibly. It is understandable (a plain three-pass procedure), decomposed (the core function names no tool), and adaptable (the domain-gap note states precisely what the analyst pours in). An entry that cannot show all three is not ready.
 
+The shipped entry, `content/entries/gl-reconciler-break-triage.yaml`, has since filled the cause-taxonomy insert with a fourteen-cause taxonomy built on the correction-loop pattern; the remediation-routing and tax-form-mapping inserts stay open as the terminal form. The three-insert version above remains the illustration of shape and depth for new entries.
+
 ---
 
 ## 9. Build pipeline
 
-1. Write the content file (Markdown plus YAML front-matter per entry, or one JSON array). One entry per asset, following the schema.
+1. Write one YAML content file per entry in `content/entries/`, following the schema. One entry per asset.
 2. Write the HTML template once: inlined CSS, the expandable-block component, the copy-button script, the filter and search controls.
-3. Write the Python build script: read content, validate that required fields are present and that `domain_gap` is non-empty for finance assets, loop over entries, inject into the template, emit one self-contained HTML file.
-4. Run, then verify against section 10.
+3. Write the Python build script: read content, run the full validation in sections 4 and 5, loop over entries, inject into the template, run the offline check, emit one self-contained HTML file. A failed offline check aborts before any file is written.
+4. Run, then verify against section 10. `python -m pytest` runs the contract tests behind each validation rule.
 5. Iterate by editing content and re-running. The template and script change rarely.
 
 ---
 
 ## 10. Acceptance criteria
 
-The evaluator should treat each as pass or fail.
+The evaluator should treat each as pass or fail. Reviewed 2026-08-04: all ten pass against the 23-entry build. Criteria 1 through 5 and 8 run as automated checks on every build, each backed by a contract test; 6, 7, 9, and 10 were verified by inspection of the template, the compiled page, and the shipped entries.
 
 1. Every entry carries all required schema fields.
 2. Every `core_function` is tool-agnostic.
@@ -175,17 +186,37 @@ Bracketed `[INSERT: …]` placeholders in an `adapt` or `author-from-spec` entry
 
 ---
 
-## 11. Open questions for the evaluator
+## 11. Open questions, resolved
 
-1. Content format: YAML front-matter plus Markdown body, or a single JSON array. Recommendation: YAML plus Markdown, for readability during review and clean multi-line prompt bodies.
-2. v1 scope: author the full inventory now, or ship a focused first subset. Recommendation: a focused v1 covering the highest-fit assets across all four stages, chosen with the group, then expand. Breadth later, depth first.
-3. Single output file versus a small set of linked files. Recommendation: single file, for the offline and portability promise.
-4. Whether to include a short "how to adapt an asset" preamble in the file that restates the three tests for any colleague who opens it cold. Recommendation: yes, one short panel at the top.
+All four closed during the build. Recorded here so the recommendations and the decisions stay together.
+
+1. Content format: YAML front-matter plus Markdown body, or a single JSON array. Recommendation: YAML plus Markdown, for readability during review and clean multi-line prompt bodies. Decided differently: one plain YAML file per entry in `content/entries/`, with block scalars carrying the multi-line bodies. Cleaner than front-matter for prompt-heavy entries, and one file per asset keeps diffs small.
+2. v1 scope: author the full inventory now, or ship a focused first subset. Recommendation: a focused v1 covering the highest-fit assets across all four stages, chosen with the group, then expand. Breadth later, depth first. Decided as recommended: seven entries shipped 2026-06-03, widened to 23 by 2026-06-18.
+3. Single output file versus a small set of linked files. Recommendation: single file, for the offline and portability promise. Decided as recommended: `dist/skills-library.html` is the whole artifact.
+4. Whether to include a short "how to adapt an asset" preamble in the file that restates the three tests for any colleague who opens it cold. Recommendation: yes, one short panel at the top. Decided as recommended: shipped as a collapsible "How to adapt an asset" panel at the top of the page.
 
 ---
 
 ## 12. Versioning roadmap
 
-- **v1:** Tool-agnostic content. Bodies run on whatever assistant the user has, including the current GS internal assistant and Copilot.
-- **v2:** Add per-asset execution notes for specific tools as access is confirmed.
-- **v3:** When Claude or an internal Goldman tool lands, add execution notes for it and, where a real skill or agent file becomes runnable, link it alongside the prompt body. The content layer carries forward unchanged; only the execution notes grow.
+- **v1:** Tool-agnostic content. Bodies run on whatever assistant the user has, including the current GS internal assistant and Copilot. Shipped 2026-06-03; 23 entries as of the 2026-08-04 review.
+- **v2:** Add per-asset execution notes for specific tools as access is confirmed. In motion: `docs/retrieval-guidance.md` records verified M365 Copilot and SharePoint-agent grounding guidance.
+- **v3:** When Claude or an internal Goldman tool lands, add execution notes for it and, where a real skill or agent file becomes runnable, link it alongside the prompt body. The content layer carries forward unchanged; only the execution notes grow. An early step exists: the `plugins/` tree packages the domain packs and the shared domain skill for Claude-native use, with the content layer untouched.
+
+---
+
+## 13. Review record, 2026-08-04
+
+Evaluator pass, run against the as-built repo rather than the plan alone: the 23 entries under `content/entries/`, `build/build.py`, `build/template.html`, `tests/test_validate.py`, plus a fresh `--check` and pytest run. Both green: 23 entries validate, 23 contract tests pass.
+
+Verdict: pass on all ten section 10 criteria. The plan held through the build. The separations it called for (content from presentation, decomposed core from domain gap, stage as the navigation axis) are visible in the shipped artifact.
+
+Findings, all incorporated in place:
+
+1. The content-format question was decided differently from the recommendation: plain YAML per entry, no front-matter, no JSON array. Sections 2, 9, and 11 now record the decision.
+2. Validation grew past the spec's description. The two evaluator rules and the structural rules run as automated checks, each with a contract test. Sections 4, 5, and 7 now state what is enforced.
+3. The shipped exemplar advanced past the section 8 version: the cause-taxonomy insert is filled; two inserts stay open as the terminal form. Section 8 notes the drift.
+4. Navigation shipped with a Type filter row and prompt-text search beyond the section 6 plan. Section 6 now matches the page.
+5. All four section 11 questions closed: three as recommended, the format question with a different answer found at build time.
+
+Out of scope for this pass: the documentation drift between CLAUDE.md, the project dossier, and the plugin tree is tracked in TASKS.md and `docs/project-state.md` and stays with that task.
