@@ -13,3 +13,22 @@ Generic third-party writing skills in the folder-based `<name>/SKILL.md` format 
 - `deep-write` -> `content/entries/iterative-tax-memo-writer.yaml`
 
 The source files stay here as provenance. The adapted entries are what ships.
+
+## bpa-generator
+
+The reconstructed orchestration spec for the desk's Business Process Analysis
+generator, the pipeline that produced the G&L Exceptions and Convey Report
+Review analyses. The original runs as a staged graph (gate, extraction,
+normalizer, nine parallel section writers, deterministic assembly) over a
+typed shared state, with a runnable rebuild in the `agent-skills/` harvest
+clone. None of that stack runs on a desk machine, so the harvest decomposes
+it into prompt-only entries:
+
+- ingestion stage (gate, extractors, normalizer) -> `content/entries/procedure-fact-normalizer.yaml`
+- automation recommender + fit evaluator (W8, W9) -> `content/entries/process-improvement-fit-assessor.yaml`
+- the full orchestration -> `content/entries/business-process-analysis-workflow.yaml`
+
+`orchestration-spec.md` preserves the spec text (converted from the source
+PDF; block order restored where text extraction interleaved). The seven
+remaining writer prompts (W1 to W7) live there in full for a later widening
+pass; today they ride as condensed inline prompts in the workflow entry.

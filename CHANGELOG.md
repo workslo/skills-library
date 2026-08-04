@@ -5,6 +5,17 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
 ## [Unreleased]
 
 ### Added
+- Content: harvested the desk's BPA generator orchestration spec into a
+  process-analysis set (#22). `procedure-fact-normalizer` turns any procedure
+  document into a verified fact sheet, `process-improvement-fit-assessor`
+  renders approved-catalog improvement opportunities plus an explicit
+  generative-assistance fit call, and `business-process-analysis-workflow`
+  chains gate, normalization, drafting, and assembly with three sign-off
+  gates. The parallel writer fan-out becomes sequential prompts over one
+  verified fact sheet, since an analyst runs one conversation at a time. The
+  cleaned source spec is preserved under `content/harvest/bpa-generator/`
+  with the full nine writer prompts for a later widening pass; the catalog
+  builds 26 entries.
 - Memory: created `memory/resolved-flags.md` to record investigated and closed
   security/monitoring flags. First entry: GitGuardian Bearer Token in the
   `generative-ai` repo (resolved 2026-06-27, non-issue — forked external repo,
