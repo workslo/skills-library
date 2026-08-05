@@ -4,6 +4,19 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
 
 ## [Unreleased]
 
+### Changed
+- Content: widened the `business-process-analysis-workflow` drafting steps to
+  full writer depth. The three condensed prompts now carry the complete W1 to
+  W7 rendering rules from the preserved spec: the four-subsection components
+  format with placeholder paths and the dominant-category tool heading, the
+  two step renders with hierarchical versus role-grouped branching and
+  explicit decision-point and loop formats, the two role renders with
+  named-individual attribution and unresolved-entity handling, the fixed
+  pattern taxonomy with its table format, and the percentile banding versus
+  day-count rules for the time estimate. W8 and W9 already ride at full depth
+  in `process-improvement-fit-assessor`. The harvest README now points to the
+  spec file as provenance rather than a pending widening pass.
+
 ### Added
 - Content: harvested the desk's BPA generator orchestration spec into a
   process-analysis set (#22). `procedure-fact-normalizer` turns any procedure

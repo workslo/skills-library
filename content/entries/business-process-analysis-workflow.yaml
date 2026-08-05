@@ -36,18 +36,42 @@ steps:
       A structured fact sheet plus a list of unconfirmed items.
   - title: Draft the summary and components
     prompt: |
-      From the verified fact sheet only, draft the executive summary as one dense paragraph covering purpose, key participants as roles, current operation, success criteria, and a headline timing figure only if the sheet holds percentile data. Then draft the components section in fixed order: in-house systems, data storage, tools, licensed software. Render an empty subsection as "None specified in source" rather than omitting it.
+      From the verified fact sheet only, draft two sections.
+
+      First the executive summary, one dense paragraph of four to seven sentences covering, in order: the purpose of the process and why it matters to the firm; the key participants as roles, never named individuals; the current state and how the process operates today; the success criteria; and a headline timing figure only if the sheet holds percentile data, using the median. If the sheet has no percentile data, omit quantitative claims entirely.
+
+      Then the components section, four subsections in this exact order:
+      1. In-house systems: each system as a bolded bullet with sub-bullets for purpose, usage, and notes.
+      2. Data storage: each location with its paths and notes; render an unknown path as "[system location and path: to be confirmed with the owner]".
+      3. Tools: name the subsection after the dominant tool category (technology tools, communication tools, or plain tools) and list each tool with its purpose.
+      4. Licensed or publicly available software.
+
+      Format entries consistently. Do not reorder the subsections, and do not omit an empty one; render it with a single sub-bullet reading "None specified in source".
     output: >
       Executive summary and components sections.
   - title: Draft the steps and roles, two views each
     prompt: |
-      Render the process twice: first a flat numbered summary with who, what, how, and timing per step, then a detailed steps section following the source's own organization, either hierarchical numbering with decision points, loops, and exit criteria, or role-grouped headers. Then render roles twice: a one-bullet-per-role responsibilities list, and a detailed roles section with description, responsibilities, and named individuals where the source attributes them.
+      Render the process twice, then the roles twice.
+
+      Step summary: a flat numbered list of the canonical steps. For each step, four single-line sub-bullets: who (role names), what (a one-sentence summary of the action), how (a one-phrase mechanism), and timing (one phrase, or "Not tracked"). Keep decision points, loops, and exit criteria out of this view; it is the high-level overview.
+
+      Detailed steps: follow the organization the fact sheet recorded. For a numbered-sequence source, use hierarchical numbering (1, 1.1, 1.2, 2, 2.1) with named subfields per step: who, what, how, decision point and loop where present, timing, and exit criteria on every step. For a role-grouped source, use headers in the form "Role: step name" with who, what, how, and timing sub-bullets, leaving decision point and loop fields out. Render each decision point as its question with one line per branch, condition then action. Render each loop as one line describing the cycle.
+
+      Responsibilities list: one bolded bullet per role with a single consolidated sub-bullet summarizing its responsibilities. Compress to one sub-bullet per role even when there are many; this is the at-a-glance view.
+
+      Detailed roles: for each role, a header with the role name and any alternative names in parentheses, a two-to-four sentence description of its place in the process, then a responsibilities subheading with one sub-bullet per discrete responsibility. Attach named individuals where the sheet attributes them, as "Role name (Person name)". Render unresolved entities verbatim with their placeholder label and parenthesized best-guess expansion.
     output: >
       Four sections: step summary, detailed steps, responsibilities list,
       detailed roles.
   - title: Classify patterns and summarize timing and decisions
     prompt: |
-      Map each step to the fixed pattern taxonomy (collect data, transform data, input or visualize or publish data, manage work items, take action) and render the two-column pattern table for categories with at least one matching step. Summarize exit criteria per step and name the steps that hold explicit decision points. Render the total time estimate from the sheet's timing facts: banded figures when percentiles exist, per-step day counts when they do not, service-level gaps named explicitly. Never invent a number.
+      Produce three readouts from the fact sheet.
+
+      Pattern table: map each step to the fixed taxonomy (collect data, transform data, input or visualize or publish data, manage work items, take action) and no other categories. A step may match several categories; a category may match none. Render a two-column table, pattern versus instances across the process, including only categories with at least one match, and list each match as "Step n: one-sentence summary".
+
+      Time estimate: when the sheet holds percentiles, render bands: best case from zero to the median, typical from the median to the 75th percentile, complex from the 75th to the 95th (naming the 90th and 95th), and outliers past the maximum where present. Close by stating what the figures measure, from which start event to which end event, and what they exclude. When the sheet holds day counts only, list them per step, state the computed total range, and name each service-level gap explicitly. Never invent a number.
+
+      Decisions and exit criteria: a bulleted list of exit criteria, one per step, rendering "Exit criteria: not specified in source" where absent, followed by one note naming the steps that hold explicit decision points.
     output: >
       Pattern table, decision and exit-criteria summary, and the time
       estimate.

@@ -29,6 +29,7 @@ it into prompt-only entries:
 - the full orchestration -> `content/entries/business-process-analysis-workflow.yaml`
 
 `orchestration-spec.md` preserves the spec text (converted from the source
-PDF; block order restored where text extraction interleaved). The seven
-remaining writer prompts (W1 to W7) live there in full for a later widening
-pass; today they ride as condensed inline prompts in the workflow entry.
+PDF; block order restored where text extraction interleaved). The workflow
+entry carries the writer prompts at full depth, W1 through W7 adapted into
+its drafting steps and W8 plus W9 in the assessor entry; the spec file stays
+as the provenance record.
