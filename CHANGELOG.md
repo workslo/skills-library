@@ -4,6 +4,26 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
 
 ## [Unreleased]
 
+### Changed
+- Content: widened the `business-process-analysis-workflow` drafting steps to
+  full writer depth. The three condensed prompts now carry the complete W1 to
+  W7 rendering rules from the preserved spec: the four-subsection components
+  format with placeholder paths and the dominant-category tool heading, the
+  two step renders with hierarchical versus role-grouped branching and
+  explicit decision-point and loop formats, the two role renders with
+  named-individual attribution and unresolved-entity handling, the fixed
+  pattern taxonomy with its table format, and the percentile banding versus
+  day-count rules for the time estimate. W8 and W9 already ride at full depth
+  in `process-improvement-fit-assessor`. The harvest README now points to the
+  spec file as provenance rather than a pending widening pass. Review on the
+  widening PR caught adaptation drift from the preserved spec; aligned in the
+  same PR: the outlier band renders only when the sheet records a maximum,
+  anchored at that value; the pattern taxonomy uses the spec's exact category
+  labels; the unknown-path placeholder names the specific system; the tool
+  subsection heading follows the explicit category mapping; the time-estimate
+  close names cycles and third-party dependencies that extend a case past the
+  bands.
+
 ### Added
 - Content: harvested the desk's BPA generator orchestration spec into a
   process-analysis set (#22). `procedure-fact-normalizer` turns any procedure
@@ -14,8 +34,7 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
   gates. The parallel writer fan-out becomes sequential prompts over one
   verified fact sheet, since an analyst runs one conversation at a time. The
   cleaned source spec is preserved under `content/harvest/bpa-generator/`
-  with the full nine writer prompts for a later widening pass; the catalog
-  builds 26 entries.
+  with the full nine writer prompts; the catalog builds 26 entries.
 - Memory: created `memory/resolved-flags.md` to record investigated and closed
   security/monitoring flags. First entry: GitGuardian Bearer Token in the
   `generative-ai` repo (resolved 2026-06-27, non-issue — forked external repo,
