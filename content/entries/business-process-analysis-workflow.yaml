@@ -42,8 +42,8 @@ steps:
 
       Then the components section, four subsections in this exact order:
       1. In-house systems: each system as a bolded bullet with sub-bullets for purpose, usage, and notes.
-      2. Data storage: each location with its paths and notes; render an unknown path as "[system location and path: to be confirmed with the owner]".
-      3. Tools: name the subsection after the dominant tool category (technology tools, communication tools, or plain tools) and list each tool with its purpose.
+      2. Data storage: each location with its paths and notes; render an unknown path as "[<system name> location and path: exact value to be confirmed with the system owner]", naming the specific system.
+      3. Tools: name the subsection "Technology Tools" when most tools carry the technology category, "Communication Tools" when most carry communication, and "Tools" otherwise; list each tool with its purpose.
       4. Licensed or publicly available software.
 
       Format entries consistently. Do not reorder the subsections, and do not omit an empty one; render it with a single sub-bullet reading "None specified in source".
@@ -67,9 +67,9 @@ steps:
     prompt: |
       Produce three readouts from the fact sheet.
 
-      Pattern table: map each step to the fixed taxonomy (collect data, transform data, input or visualize or publish data, manage work items, take action) and no other categories. A step may match several categories; a category may match none. Render a two-column table, pattern versus instances across the process, including only categories with at least one match, and list each match as "Step n: one-sentence summary".
+      Pattern table: map each step to the fixed taxonomy, using these exact category labels and no others: Collect Data, Transform Data, Input/Visualize/Publish Data, Manage Workitems, Take Action. A step may match several categories; a category may match none. Render a two-column table, pattern versus instances across the process, including only categories with at least one match, and list each match as "Step n: one-sentence summary".
 
-      Time estimate: when the sheet holds percentiles, render bands: best case from zero to the median, typical from the median to the 75th percentile, complex from the 75th to the 95th (naming the 90th and 95th), and outliers past the maximum where present. Close by stating what the figures measure, from which start event to which end event, and what they exclude. When the sheet holds day counts only, list them per step, state the computed total range, and name each service-level gap explicitly. Never invent a number.
+      Time estimate: when the sheet holds percentiles, render bands: best case from zero to the median, typical from the median to the 75th percentile, complex from the 75th to the 95th (naming the 90th and 95th), and an outlier band only when the sheet records a maximum, anchored at that recorded value and rendered open-ended from it. Close by stating what the figures measure, from which start event to which end event, what they exclude, and any recurring review cycle or third-party dependency that can extend a case past the bands. When the sheet holds day counts only, list them per step, state the computed total range, and name each service-level gap explicitly. Never invent a number.
 
       Decisions and exit criteria: a bulleted list of exit criteria, one per step, rendering "Exit criteria: not specified in source" where absent, followed by one note naming the steps that hold explicit decision points.
     output: >
