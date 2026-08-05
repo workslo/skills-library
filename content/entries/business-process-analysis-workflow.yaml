@@ -1,0 +1,88 @@
+id: business-process-analysis-workflow
+name: Business process analysis workflow
+type: workflow
+stage: research
+tier: 1
+source: "Internal BPA generator orchestration spec (reconstructed), with a runnable rebuild in the agent-skills harvest clone"
+domain_fit: >
+  Trade support, KB analysis, and leadership reporting. Turns any desk
+  procedure into the analysis document that runbook rewrites, training, and
+  tooling-investment decisions read from, with every fact traceable to the
+  source document.
+maturity: >
+  First-party desk tool, reconstructed spec. The source generator ran as a
+  staged pipeline (gate, extraction, nine parallel section writers,
+  deterministic assembly) and produced two production analyses, G&L
+  Exceptions and Convey Report Review, which remain the reference for shape
+  and depth. The parallel fan-out becomes sequential prompts here because an
+  analyst runs one conversation at a time; the shared state object becomes a
+  verified fact sheet carried between steps.
+trigger: >
+  A desk procedure needs durable documentation, a KB article needs a rewrite,
+  a new-hire runbook is missing, or leadership asks which processes are
+  candidates for tooling investment.
+steps:
+  - title: Gate the source document
+    prompt: |
+      Confirm the document describes a procedure or business process: named roles or teams who act, step-like sequences of actions, identifiable systems or artifacts, and a definable end state. Marketing decks, research reports, policy memos without procedural content, and announcements fail the gate. Give a go or no-go with one sentence of reasoning and a confidence level. When uncertain, reject; the later steps cannot recover from a bad gate call.
+    output: >
+      A go or no-go decision with reason and confidence. On no-go, the
+      workflow stops here.
+  - title: Normalize the facts
+    asset: procedure-fact-normalizer
+    prompt: |
+      Extract the fact sheet in ordered passes: roles and people, steps with who, what, how, and timing, systems and artifacts, decision points and timing facts, unresolved items. Preserve source vocabulary, keep the source's step organization, and mark every unknown as a confirmation placeholder.
+    output: >
+      A structured fact sheet plus a list of unconfirmed items.
+  - title: Draft the summary and components
+    prompt: |
+      From the verified fact sheet only, draft the executive summary as one dense paragraph covering purpose, key participants as roles, current operation, success criteria, and a headline timing figure only if the sheet holds percentile data. Then draft the components section in fixed order: in-house systems, data storage, tools, licensed software. Render an empty subsection as "None specified in source" rather than omitting it.
+    output: >
+      Executive summary and components sections.
+  - title: Draft the steps and roles, two views each
+    prompt: |
+      Render the process twice: first a flat numbered summary with who, what, how, and timing per step, then a detailed steps section following the source's own organization, either hierarchical numbering with decision points, loops, and exit criteria, or role-grouped headers. Then render roles twice: a one-bullet-per-role responsibilities list, and a detailed roles section with description, responsibilities, and named individuals where the source attributes them.
+    output: >
+      Four sections: step summary, detailed steps, responsibilities list,
+      detailed roles.
+  - title: Classify patterns and summarize timing and decisions
+    prompt: |
+      Map each step to the fixed pattern taxonomy (collect data, transform data, input or visualize or publish data, manage work items, take action) and render the two-column pattern table for categories with at least one matching step. Summarize exit criteria per step and name the steps that hold explicit decision points. Render the total time estimate from the sheet's timing facts: banded figures when percentiles exist, per-step day counts when they do not, service-level gaps named explicitly. Never invent a number.
+    output: >
+      Pattern table, decision and exit-criteria summary, and the time
+      estimate.
+  - title: Assess improvement and fit
+    asset: process-improvement-fit-assessor
+    prompt: |
+      Identify five to nine improvement opportunities tied to step numbers, each naming only approved-catalog technologies. Then make the explicit call on generative-assistance fit with internally consistent justification and a human-review caveat.
+    output: >
+      The opportunities list and the fit assessment.
+  - title: Assemble and verify
+    prompt: |
+      Place every section into the master outline in fixed order: executive summary, components, process step summary, responsibilities by role, roles, steps, time estimate, decision points, common patterns, improvement opportunities, fit assessment. Check every fact against the fact sheet, keep every confirmation placeholder visible, and open the document with the standard notice that the content was machine-drafted and the reader is responsible for verifying it.
+    output: >
+      The finished process analysis document plus the unconfirmed-items list
+      for owner follow-up.
+gates:
+  - >
+    Analyst verifies the normalized fact sheet against the source document
+    before any drafting starts; drafting from an unverified sheet propagates
+    extraction errors into every section.
+  - >
+    Analyst confirms every improvement recommendation names only
+    approved-catalog technologies before the document circulates.
+  - >
+    Communication owner approves before the analysis goes to leadership or
+    the field, and the process owner confirms or resolves each open
+    placeholder.
+output: >
+  A complete, source-checked business process analysis in the fixed outline,
+  with a pattern and timing readout, an approved-catalog improvement list, an
+  explicit generative-assistance fit call, and an unconfirmed-items list
+  routed to the process owner.
+notes: >
+  Decomposed from the desk's own generator spec. What survives the
+  decomposition: the gate, the fact-sheet contract, the shared style rules,
+  the fixed outline, and the sign-off points. What drops: the graph engine,
+  the model gateway, and true parallelism, which an analyst replaces by
+  running the drafting steps in sequence over one verified sheet.

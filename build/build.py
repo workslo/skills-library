@@ -140,12 +140,15 @@ def validate_entries(entries):
         if not tier_ok:
             errors.append((f, "tier", "must be an integer 1 to 4"))
 
+        # Every entry renders into a stage group, workflows included. An
+        # unknown stage would pass validation and then drop out of the page
+        # silently, so the enum check runs for every entry type.
+        stage = e.get("stage")
+        if stage and stage not in STAGES:
+            errors.append((f, "stage", "must be one of " + ", ".join(STAGES)))
+
         # Asset-specific rules.
         if etype != "workflow":
-            stage = e.get("stage")
-            if stage and stage not in STAGES:
-                errors.append((f, "stage", "must be one of " + ", ".join(STAGES)))
-
             adaptation = e.get("adaptation")
             if adaptation and adaptation not in ADAPTATIONS:
                 errors.append((f, "adaptation", "must be one of " + ", ".join(ADAPTATIONS)))

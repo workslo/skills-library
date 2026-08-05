@@ -2,6 +2,11 @@
 # Force-add the built file (git add -f dist/skills-library.html) if you want to version a release.
 dist/
 
+# Node, used only by build/screenshot.mjs (playwright installed ad hoc)
+node_modules/
+package.json
+package-lock.json
+
 # Python
 __pycache__/
 *.py[cod]

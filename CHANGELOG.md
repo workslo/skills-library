@@ -5,6 +5,17 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
 ## [Unreleased]
 
 ### Added
+- Content: harvested the desk's BPA generator orchestration spec into a
+  process-analysis set (#22). `procedure-fact-normalizer` turns any procedure
+  document into a verified fact sheet, `process-improvement-fit-assessor`
+  renders approved-catalog improvement opportunities plus an explicit
+  generative-assistance fit call, and `business-process-analysis-workflow`
+  chains gate, normalization, drafting, and assembly with three sign-off
+  gates. The parallel writer fan-out becomes sequential prompts over one
+  verified fact sheet, since an analyst runs one conversation at a time. The
+  cleaned source spec is preserved under `content/harvest/bpa-generator/`
+  with the full nine writer prompts for a later widening pass; the catalog
+  builds 26 entries.
 - Memory: created `memory/resolved-flags.md` to record investigated and closed
   security/monitoring flags. First entry: GitGuardian Bearer Token in the
   `generative-ai` repo (resolved 2026-06-27, non-issue — forked external repo,
@@ -24,6 +35,15 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
   internal heuristic, not vendor guidance.
 
 ### Changed
+- Spec: completed the evaluator review of `SKILLS_LIBRARY_SPEC.md` (2026-08-04),
+  open since 2026-05-31. All ten acceptance criteria pass against the as-built
+  23-entry library. Findings incorporated in place: the one-YAML-file-per-entry
+  format decision (sections 2, 9, 11), the automated validation scope (sections
+  4, 5, 7), the exemplar's filled cause taxonomy (section 8), the shipped
+  navigation with the Type filter and prompt-text search (section 6), all four
+  section 11 open questions closed, a v1-shipped roadmap note (section 12), and
+  a new section 13 review record. Status moved from "Draft for review" to
+  reviewed.
 - Agent contract accuracy: corrected the entry count in `AGENTS.md`/`CLAUDE.md`
   from a stale "14 today" to the actual 23 (validator-confirmed), and named the
   six meta entries plus the three writing-support entries the prose had omitted.
@@ -47,6 +67,12 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
   the legacy catalog and plugin marketplace stay aligned.
 
 ### Fixed
+- Validation: the `stage` allowed-value check now runs for every entry type.
+  It sat in the asset-only branch, so a workflow with an unknown stage passed
+  `--check` and then dropped out of the rendered stage groups silently. Found
+  by review on PR #39 during the spec-review pass. New contract tests cover
+  the stage enum for assets and workflows and the adaptation enum.
+  (`build/build.py`, `tests/test_validate.py`)
 - Domain reference: corrected two IRS mappings in `.claude/skills/tax-ops-domain.md`
   and the mirrored `plugins/tax-ops-shared/skills/tax-ops-domain/SKILL.md`,
   verified 2026-06-18 against current IRS instructions. Substitute payments in
@@ -63,6 +89,9 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
   "calls external APIs" now trips the rule, where only "API" did before.
 - Offline check: patterns catch protocol-relative references (`//cdn…`), not just
   `https?:`. A protocol-relative external src, href, or `url()` is now flagged.
+- `.gitignore`: `node_modules/` and npm manifests are ignored. The playwright
+  package that `build/screenshot.mjs` imports is installed ad hoc for a render
+  check and is not part of the build; the install left an untracked tree.
 - `.gitignore`: secret coverage widened to `.env*`, `credentials.json`,
   `token.json`, `oauth_creds.json`, `client_secret*.json`, `.ssh/`, `.mcp-auth/`.
 - Memory layer: hardcoded absolute paths made portable. The repo-review agent's
