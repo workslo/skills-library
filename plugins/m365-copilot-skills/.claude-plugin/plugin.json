@@ -1,0 +1,6 @@
+{
+  "name": "m365-copilot-skills",
+  "version": "0.1.0",
+  "description": "Authors custom SKILL.md files for Microsoft 365 Copilot hosts and includes deployable declarative-agent and SharePoint assets.",
+  "author": { "name": "skills-library" }
+}
