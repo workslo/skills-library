@@ -16,6 +16,11 @@
       "name": "tax-ops-shared",
       "source": "./plugins/tax-ops-shared",
       "description": "Shared tax-ops domain knowledge (break taxonomy, routing rules, tax-form mappings) plus the validate/build/new-entry authoring commands."
+    },
+    {
+      "name": "m365-copilot-skills",
+      "source": "./plugins/m365-copilot-skills",
+      "description": "Authors custom SKILL.md files for Microsoft 365 Copilot — Word, Excel, PowerPoint, Cowork, and AI in SharePoint. Includes the portable Agent Skills spec, per-host install paths, worked examples, and ready-to-deploy declarative-agent and SharePoint assets."
     }
   ]
 }
