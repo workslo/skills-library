@@ -25,6 +25,13 @@ All notable changes to the Skills Library. Newest first. Dates are YYYY-MM-DD.
   bands.
 
 ### Added
+- Plugin: added `plugins/m365-copilot-skills/` with a `create-a-skill`
+  authoring skill that interviews users and drafts installable `SKILL.md`
+  files for Word, Excel, PowerPoint, Copilot Cowork, and AI in SharePoint.
+  Added host-neutral and host-specific references under
+  `skills/create-a-skill/references/`, deployable declarative-agent and
+  SharePoint assets under `skills/create-a-skill/assets/`, and registered the
+  plugin in `.claude-plugin/marketplace.json`.
 - Content: harvested the desk's BPA generator orchestration spec into a
   process-analysis set (#22). `procedure-fact-normalizer` turns any procedure
   document into a verified fact sheet, `process-improvement-fit-assessor`
